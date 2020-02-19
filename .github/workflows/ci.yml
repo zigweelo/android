@@ -13,9 +13,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Gradle
-        run: ./gradlew build
       - name: Run linter
-        run: ./gradlew lint
+        run: sudo ./gradlew lint
       - name: Run test
-        run: ./gradlew test
+        run: sudo ./gradlew test
