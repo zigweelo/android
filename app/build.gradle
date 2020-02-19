@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -60,6 +61,11 @@ dependencies {
 
     // Log / Debug
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Arrow
+    implementation 'io.arrow-kt:arrow-core:0.10.4'
+    implementation 'io.arrow-kt:arrow-syntax:0.10.4'
+    kapt 'io.arrow-kt:arrow-meta:0.10.4'
 
     // Test
     testImplementation 'junit:junit:4.12'
