@@ -24,6 +24,6 @@ data class UserLocalStorage(
 
     suspend fun load() = withContext(Dispatchers.IO) {
         sharedPreferences.getString("current_user", "")
-            .runTry { moshi.adapter(User::class.java).fromJson(this)!! }
+            .runTry { moshi.adapter(User::class.java).fromJson(this!!)!! }
     }
 }

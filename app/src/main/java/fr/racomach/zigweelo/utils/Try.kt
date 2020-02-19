@@ -12,6 +12,18 @@ sealed class Try<out V> {
     data class Success<out V>(val result: V) : Try<V>()
 }
 
+fun <V> Try<V>.isSuccess() = this is Try.Success
+
+fun <V> Try<V>.getOrNull() = when (this) {
+    is Try.Failure -> null
+    is Try.Success -> result
+}
+
+fun <V> Try<V>.exceptionOrNull() = when (this) {
+    is Try.Failure -> exception
+    is Try.Success -> null
+}
+
 inline infix fun <V, V2> Try<V>.flatMap(f: (V) -> Try<V2>): Try<V2> = when (this) {
     is Try.Failure -> Try.Failure(exception)
     is Try.Success -> f(result)
