@@ -15,9 +15,19 @@ fun <T> Assert<Try<T>>.isSuccess(): Assert<T> = transform { actual ->
         @Suppress("UNCHECKED_CAST")
         actual.getOrNull() as T
     } else {
-        expected("success but was failure:${showError(
-            actual.exceptionOrNull()!!
-        )}")
+        expected(
+            "success but was failure:${showError(
+                actual.exceptionOrNull()!!
+            )}"
+        )
+    }
+}
+
+fun <T> Assert<Try<T>>.isFail(): Assert<Throwable> = transform { actual ->
+    if (actual.isSuccess()) {
+        expected("expected a failure but was a success: ${actual.getOrNull()}")
+    } else {
+        actual.exceptionOrNull()!!
     }
 }
 
