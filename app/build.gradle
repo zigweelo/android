@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.diffplug.gradle.spotless'
 // Required as JUnit 5 doesn't support android modules out of the box.
 apply plugin: "de.mannodermaus.android-junit5"
-
 
 android {
     compileSdkVersion 29
@@ -57,6 +57,12 @@ android {
                 }
             }
         }
+    }
+}
+
+spotless {
+    kotlin {
+        ktlint("0.36.0")
     }
 }
 
