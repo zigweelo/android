@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Zigweelo</string>
+
+    <!-- REGISTER -->
+    <string name="register_user_loading">Registering your account…</string>
+    <string name="register_user_failed">The registration has failed</string>
+    <string name="register_user_retry">Retry</string>
 </resources>
