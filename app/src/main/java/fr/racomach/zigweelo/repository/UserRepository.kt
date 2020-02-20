@@ -23,24 +23,23 @@ class UserRepositoryImpl(
 ) : UserRepository {
 
     override suspend fun current() =
-        loadOrCreate { name -> register(name) }
+        loadOrCreate { register() }
 
     @VisibleForTesting
     suspend fun loadOrCreate(
-        name: String? = null,
-        createNewUser: suspend (String?) -> Try<User>
+        createNewUser: suspend () -> Try<User>
     ) =
         userLocalStorage.load()
             .fold(
                 ifFailure = {
-                    createNewUser(name)
-                        .flatMap { userLocalStorage.save(User(name, it.authenticationToken)) }
+                    createNewUser()
+                        .flatMap { userLocalStorage.save(User(authenticationToken = it.authenticationToken)) }
                 },
                 ifSuccess = { Try.Success(it) }
             )
 
     @VisibleForTesting
-    suspend fun register(name: String? = null) =
+    suspend fun register() =
         zigweeloApi.createAnonymousUser(user = UserRequest()).toTry()
-            .map { User(name, it.authenticationToken) }
+            .map { User(authenticationToken = it.authenticationToken) }
 }
