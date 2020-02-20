@@ -58,7 +58,7 @@ object UserRepositorySpecs : Spek({
                 }
             }
 
-            Then("it should received a valid user with authentication token returns by the API") {
+            Then("it should return a valid user and the expected authentication token") {
                 assertThat(user).isSuccess().isEqualTo(User(null, expectedAuthToken))
             }
 
@@ -90,7 +90,7 @@ object UserRepositorySpecs : Spek({
                 }
             }
 
-            Then("it should received an invalid user with error") {
+            Then("it should return an error") {
                 assertThat(user).isFail()
             }
 
@@ -130,7 +130,7 @@ object UserRepositorySpecs : Spek({
                 assertThat(userResponse).isSuccess().isEqualTo(user)
             }
 
-            And("it should call the register API") {
+            And("it should not call the register API") {
                 coVerify(exactly = 0) { zigweeloApiMock.createAnonymousUser(any()) }
             }
 
